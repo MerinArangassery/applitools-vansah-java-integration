@@ -4,6 +4,7 @@ Follow the instructions below to integrate [Applitools](https://applitools.com/)
 ## Prerequisites
 - Applitools - [Applitools](https://applitools.com/) project is already set up with the API token properly configured in the environment variables.
 - Make sure you have installed all your Maven and TestNG dependencies.
+	
 - Vansah Binding - Download VansahNode.java file from this repo [`VansahNode.java`](https://github.com/testpointcorp/Vansah-API-Binding-Java/blob/prod/src/main/java/com/vansah/VansahNode.java).
 - Make sure that [`Vansah`](https://marketplace.atlassian.com/apps/1224250/vansah-test-management-for-jira?tab=overview&hosting=cloud) is installed in your Jira workspace
 - You need to Generate  [`Vansah connect`](https://docs.vansah.com/docs-base/generate-a-vansah-api-token-from-jira-cloud/) token to authenticate with Vansah APIs.
@@ -29,8 +30,43 @@ source ~/.bashrc
 ## Implementation
 To enable Vansah Integration in Applitools project, follow these steps:
 
-1. **Place the VansahBinding.java File**: Ensure that [`VansahBinding.java`](/src/test/java/com/vansah/VansahNode.java) is located in your package `/applitools-vansah/src/test/java`
-2. Define Vansah constants: 
+1. Make sure you have mentioned all your Maven and TestNG dependencies in the pom.xml file.
+       
+	   <dependencies>
+		<dependency>
+			<groupId>com.mashape.unirest</groupId>
+			<artifactId>unirest-java</artifactId>
+			<version>1.4.9</version>
+		</dependency>
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-java</artifactId>
+			<version>4.8.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.applitools</groupId>
+			<artifactId>eyes-selenium-java5</artifactId>
+			<version>5.57.0</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<version>7.7.1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.github.bonigarcia</groupId>
+			<artifactId>webdrivermanager</artifactId>
+			<version>5.9.1</version>
+		</dependency>
+
+	   </dependencies>
+	
+	
+
+2. Ensure that [`VansahBinding.java`](/src/test/java/com/vansah/VansahNode.java) is located in your package `/applitools-vansah/src/test/java`
+2. Define the following Vansah constants in the Java Class file: 
     ```java
     
     private String testCaseKey; // Mandatory: Vansah Test Case Key
@@ -83,7 +119,7 @@ To enable Vansah Integration in Applitools project, follow these steps:
 	}
 
     ```
-5.   Set up `sending` results to Vansah in cleanUpAfterEachTest() with      `@AfterMethod` Annotation
+5.   Set up cleanUpAfterEachTest() with  `@AfterMethod` Annotation to `send` the results to Vansah.
      ```Java
      @AfterMethod
         public void cleanUpAfterEachTest() throws Exception {
