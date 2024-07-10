@@ -30,7 +30,7 @@ source ~/.bashrc
 ## Implementation
 To enable Vansah Integration in Applitools project, follow these steps:
 
-1. Make sure you have mentioned all your Maven and TestNG dependencies in the pom.xml file.
+1. Make sure you have mentioned all your Maven and TestNG dependencies in the [pom.xml](https://github.com/testpointcorp/applitools-vansah-java-integration/blob/main/pom.xml)
        
 	   <dependencies>
 		<dependency>
@@ -66,7 +66,7 @@ To enable Vansah Integration in Applitools project, follow these steps:
 	
 
 2. Ensure that [`VansahBinding.java`](/src/test/java/com/vansah/VansahNode.java) is located in your package `/applitools-vansah/src/test/java`
-2. Define the following Vansah constants in the Java Class file: 
+2. Define Vansah constants in the Java Class file: 
     ```java
     
     private String testCaseKey; // Mandatory: Vansah Test Case Key
@@ -119,7 +119,7 @@ To enable Vansah Integration in Applitools project, follow these steps:
 	}
 
     ```
-5.   Set up cleanUpAfterEachTest() with  `@AfterMethod` Annotation to `send` the results to Vansah.
+5.   Set up to `send` the results to Vansah in cleanUpAfterEachTest() with      `@AfterMethod` Annotation
      ```Java
      @AfterMethod
         public void cleanUpAfterEachTest() throws Exception {
@@ -146,7 +146,7 @@ To enable Vansah Integration in Applitools project, follow these steps:
             vansahTest.addQuickTestFromJiraIssue(testCaseKey, result);
         }
         }
-
+**Please note :** If you encounter any other Exception, **catch** it here, set result=1 to log the result as **failed** in Vansah. 
 ### 
 By following the above steps, your Applitools project will be equipped to send test run results directly to Vansah, streamlining your testing and reporting process.
 
